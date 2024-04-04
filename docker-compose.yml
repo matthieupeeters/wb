@@ -44,9 +44,11 @@ services:
     ports:
       - 8080:8080
     volumes:    
-      - ./sqlpage:/var/www
+      - ./sqlpage/var/www:/var/www
+      - ./sqlpage/etc/sqlpage:/etc/sqlpage
     environment:
-      - SQLBASE_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db/${DB}
+      - SQLBASE_DATABASE_URL=postgres://postgres:example@db/postgres
+#      - SQLBASE_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db/${DB}
 
 
   # TODO: Add PostGREST
