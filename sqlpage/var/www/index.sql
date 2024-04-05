@@ -1,4 +1,6 @@
-SELECT 'list' AS component, 'Popular websites' AS title;
+select 'list' as component
+  , 'Database description' as title;
 
-SELECT 'Hello' AS title, 'world' AS description, 'https://wikipedia.org' AS link;
+select 'version' as title
+  , version() as description;
 

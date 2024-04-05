@@ -6,6 +6,7 @@ services:
   db:
     image: postgres:latest
     restart: always
+    # command: ["postgres", "-c", "logging_collector=on", "-c", "log_directory=/logs", "-c", "log_filename=postgresql.log", "-c", "log_statement=all"]
     # set shared memory limit when using docker-compose
     shm_size: 128mb
     # or set shared memory limit when deploy via swarm stack
@@ -47,8 +48,8 @@ services:
       - ./sqlpage/var/www:/var/www
       - ./sqlpage/etc/sqlpage:/etc/sqlpage
     environment:
-      - SQLBASE_DATABASE_URL=postgres://postgres:example@db/postgres
-#      - SQLBASE_DATABASE_URL=postgres://${DB_USER}:${DB_PASSWORD}@db/${DB}
+#      DATABASE_URL: postgres://postgres:example@db/postgres
+      DATABASE_URL: postgres://${DB_USER}:${DB_PASSWORD}@db/${DB}
 
 
   # TODO: Add PostGREST
