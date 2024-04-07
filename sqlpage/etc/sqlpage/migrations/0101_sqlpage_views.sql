@@ -23,7 +23,7 @@ where not (attisdropped)
 create view sqlpage_files as
 select table_link::varchar(255) as path
   , ('select ''table'' as component
-    , ''This is an overview of table.' || name || ''' as description
+    , ''This is an overview of table ' || name || ''' as description
     , true as sort
     , true as search;
 
