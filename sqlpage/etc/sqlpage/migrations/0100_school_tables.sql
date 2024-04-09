@@ -1,21 +1,3 @@
-create domain email as text constraint nullable null constraint pattern check (value ~ '^[\u0080-\U0010ffffa-zA-Z0-9.!#$%&''*+\/=?^_`{|}~-]{1,64}@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$')
--- Taken from
--- https://html.spec.whatwg.org/multipage/input.html#e-mail-state-(type=email)
--- so not according to RFC 5322. See justification there.
--- also, don't allow crazy long addresses.
-constraint maxlength check (length(value) <= 320) constraint minlength check (length(value) >= 3);
-
-comment on domain email is 'Used to contain valid email addresses. ';
-
-create domain ident as uuid;
-
-comment on domain ident is 'Used for primary keys and references to them. ';
-
-create domain tel as text constraint pattern check (value ~ '^\+((?:9[679]|8[035789]|6[789]|5[90]|42|3[578]|2[1-689])|9[0-58]|8[1246]|6[0-6]|5[1-8]|4[013-9]|3[0-469]|2[70]|7|1)(?:\W*\d){0,13}\d$')
--- don't allow crazy long or useless short numbers
-constraint maxlength check (length(value) <= 50) constraint minlength check (length(value) >= 5);
-
-comment on domain tel is 'Valid international telephone number, must start with +country code, e.g. "+316..". ';
 
 create table _record (
   id ident primary key default gen_random_uuid ()

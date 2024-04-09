@@ -39,7 +39,7 @@ begin
 
 end;
 
-comment on function simplyfied_compare_hash (text) is 'Creates a string that is usable to compare two column-names, for matching view-columns to table-columns. Used in column_extra_description. ';
+comment on function simplified_compare_hash (text) is 'Creates a string that is usable to compare two column-names, for matching view-columns to table-columns. Used in column_extra_description. ';
 
 create or replace function get_constraint_parameter (constraintoid oid , type text)
   returns text
@@ -72,11 +72,11 @@ begin
   select 
    case when $1 is null
       or trim($1 , E' \n\r\t') = '' 
-      or $1 js not json object 
-      or not($1 ? 'sqlpage') then
+      or $1 is not json object 
+      or not($1::jsonb ? 'sqlpage') then
       jsonb_build_object()
    else
-      $1 -> 'sqlpage'
+      $1::jsonb -> 'sqlpage'
    end;
 end;
 
@@ -142,8 +142,8 @@ end;
  */
 
 
-  drop view if exists column_extra_description cascade;
-  create or replace view column_extra_description as
+  drop view if exists _wb_column_extra_description cascade;
+  create or replace view _wb_column_extra_description as
   with recursive html_input_types as materialized (
      values ('button') , ('checkbox') , ('color') , ('date') , ('datetime-local') , ('email') , ('file') , ('hidden')
           , ('image') , ('month') , ('number') , ('password') , ('radio') , ('range') , ('reset') , ('search') 
@@ -213,7 +213,7 @@ end;
      || make_null_jsonb('filter value', case when typname = 'text' then 'ilike.' else 'eq.' end)
      || make_null_jsonb('disabled', true, disabled_sql_types.column1 is not null)
      || make_null_jsonb('sql_type', pg_type.typname)
-     || make_null_jsonb('cast', 'text')
+     || make_null_jsonb('cast', 'text'::text)
      || extract_sqlpage_jsonb(description) as extra_description
     from pg_catalog.pg_type
     left join pg_catalog.pg_description on pg_type.oid = pg_description.objoid
@@ -291,7 +291,7 @@ end;
   join pg_catalog.pg_namespace on pg_class.relnamespace = pg_namespace.oid;
 
 
-  create or replace view table_extra_description as
+  create or replace view _wb_table_extra_description as
     select schema, "table", 
       jsonb_build_object('caption', "table",
         'columns', jsonb_agg(extra_description order by attnum),
@@ -299,7 +299,7 @@ end;
         'name' , "table")
      || comment_to_title_jsonb((select description from pg_description where objoid = attrelid and objsubid = 0))
       as extra_description
-    from column_extra_description
+    from _wb_column_extra_description
     group by schema, "table", attrelid;
 
 

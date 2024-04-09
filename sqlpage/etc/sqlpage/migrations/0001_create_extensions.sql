@@ -1,4 +1,3 @@
-\echo 'Creating extensions...'
 -- uuid functions
 create extension if not exists "uuid-ossp";
 
@@ -9,5 +8,5 @@ create extension if not exists pgcrypto;
 create extension if not exists citext;
 
 -- unit testing for postgresql
-create extension if not exists pgtap;
+--  create extension if not exists pgtap;
 
