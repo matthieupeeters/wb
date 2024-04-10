@@ -1,10 +1,12 @@
-select 'list' as component
-  , 'Available tables' as title;
+select 'title' as component
+  , 'Available tables' as contents;
 
-select name as title
+select 
+'text' as component,
+name as title
   , (
-    select string_agg(quote_ident(c."column") || '::' || type || '--' || extra_description::text || '--' || conkey::text, E',\n' order by c.order_nr asc)
+    select string_agg(quote_ident(c."column") || '::' || type || '--' || coalesce(extra_description::text, 'NULL') || '--' || coalesce(conkey::text, 'NULL'), E',\n' order by c.order_nr asc)
     from _wb_visible_column c
-    where attrelid = relid) as description
+    where attrelid = relid) as contents
     , table_link
   from _wb_visible_table
