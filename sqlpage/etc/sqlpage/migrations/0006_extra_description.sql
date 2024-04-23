@@ -296,6 +296,8 @@ end;
       jsonb_build_object('caption', "table",
         'columns', jsonb_agg(extra_description order by attnum),
         'caption', "table",  -- Equivalent of column-label
+        'incoming_foreign_keys', jsonb_build_object(),
+        'outgoing_foreign_keys', jsonb_build_object(),
         'name' , "table")
      || comment_to_title_jsonb((select description from pg_description where objoid = attrelid and objsubid = 0))
       as extra_description

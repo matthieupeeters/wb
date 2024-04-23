@@ -65,3 +65,13 @@ select 'session_user' as title
 select 'system_user' as title
   , system_user as description;
 
+select 'hero' as component
+  , 'https://sql.ophir.dev/functions.sql?function=version#function' as link
+  , 'Description of sqlpage functions' as link_text;
+
+select 'list' as component
+  , 'sqlpage description' as title;
+
+select 'sqlpage.version()' as title
+ , sqlpage.version() as description;
+

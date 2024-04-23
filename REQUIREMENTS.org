@@ -1,0 +1,45 @@
+* Requirements
+
+** User management
+
+*** create user
+*** confirmation mails
+
+** Time management
+
+*** Todo list
+
+*** Daily/weekly/monthly/yearly jobs
+
+*** Action pattern 
+
+** Customer management
+
+
+** Product management
+
+*** Parts
+
+*** Supply
+
+*** Demand
+
+** Warehouse management
+
+*** Buildings, magazins, aisles, bays, levels, shelfs, positions
+https://www.supplyvelocity.com/lean-warehouse-aisle-bay-level-position-bin-location-coding/
+
+
+** Production floor management
+
+*** Tables, tool-storage. 
+
+** Price management
+*** Production cost
+*** Prices of competition
+
+
+* Design
+** "crud_table.handlebars"
+Based on "table.handlebars".
+if in the 0th row there is a column called "", 

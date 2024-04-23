@@ -1,0 +1,63 @@
+<div class="card my-2 {{class}}" {{#if id}}id="{{id}}"{{/if}}>
+    <div class="card-body">
+        <div class="table-responsive" {{#if (or sort search)}}data-pre-init="table"{{/if}}>
+            {{#if search}}
+                <div class="p-2">
+                    <input type="search" class="form-control form-control-rounded fs-6 search" placeholder="Search…">
+                </div>
+            {{/if}}
+                <table class="table {{~#if striped_rows}}table-striped {{~/if}}{{~#if
+                              striped_columns}}table-striped-columns {{~/if}}{{~#if
+                              hover}}table-hover {{~/if}}{{~#if border}}table-bordered {{~/if}}
+                              {{~#if small}}table-sm {{~/if}}">
+                    {{#if description}}<caption>{{description}}</caption>{{/if}}
+                    {{#each_row}}
+                    {{#each (parse_json ../extra_description)}}{{/each}}
+                    {{#if (eq @row_index 0)}}
+                        <thead>
+                        <tr>
+                            {{#each this}}
+                                {{#if (not (starts_with @key '_sqlpage_'))}}
+                                <th class="
+                                    {{~@key~}}
+                                    {{~#if (array_contains ../../align_right @key)}} text-end {{/if~}}
+                                ">
+                                    {{~#if ../../sort~}}
+                                        <button class="table-sort sort d-inline" data-sort="{{@key}}">{{@key}}</button>
+                                    {{~else~}}
+                                        {{~@key~}}
+                                    {{~/if~}}
+                                </th>
+                                {{/if}}
+                            {{/each}}
+                        </tr>
+                        </thead>
+                    <tbody class="table-tbody list">{{#delay}}</tbody>{{/delay}}
+                    {{/if}}
+                    <tr class="{{_sqlpage_css_class}} {{#if _sqlpage_color}}bg-{{_sqlpage_color}}-lt{{/if}}">
+                        {{~#each this~}}
+                            {{~#if (not (starts_with @key '_sqlpage_'))~}}
+                            <td class="
+                                {{~@key~}}
+                                {{~#if (array_contains ../../align_right @key)
+                                }} text-end {{
+                                /if}} align-middle">
+                                {{~#if (array_contains ../../markdown @key)~}}
+                                    {{{markdown this}}}
+                                {{~else~}}
+                                {{~#if (array_contains ../../icon @key)~}}
+                                    {{~icon_img this~}}
+                                {{~else~}}
+                                    {{this}}
+                                {{~/if~}}
+                                {{~/if~}}
+                            </td>
+                            {{~/if~}}
+                        {{~/each~}}
+                    </tr>
+                {{/each_row}}
+                {{flush_delayed}}
+            </table>
+        </div>
+    </div>
+</div>
