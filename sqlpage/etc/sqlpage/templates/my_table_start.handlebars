@@ -1,0 +1,19 @@
+
+<p>AAP</p>
+
+
+<div class="card my-2 {{class}}" {{#if id}}id="{{id}}"{{/if}}>
+    <div class="card-body">
+        <div class="table-responsive" {{#if (or sort search)}}data-pre-init="table"{{/if}}>
+            {{#if search}}
+                <div class="p-2">
+                    <input type="search" class="form-control form-control-rounded fs-6 search" placeholder="Search…">
+                </div>
+            {{/if}}
+<h2>Some table crap</h2>
+            <table class="table {{#if striped_rows}}table-striped {{/if}}{{#if
+            striped_columns}}table-striped-columns {{/if}}{{#if
+            hover}}table-hover {{/if}}{{#if border}}table-bordered {{/if}}
+            {{#if small}}table-sm {{/if}}">
+            {{#if description}}<caption>{{description}}</caption>{{/if}}
+

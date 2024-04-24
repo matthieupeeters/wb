@@ -36,7 +36,6 @@ create or replace function simplified_compare_hash (text)
 begin
   atomic
   select regexp_replace(lower($1) , '[^a-z0-9]' , '');
-
 end;
 
 comment on function simplified_compare_hash (text) is 'Creates a string that is usable to compare two column-names, for matching view-columns to table-columns. Used in column_extra_description. ';
@@ -58,7 +57,6 @@ begin
       when type = 'minlength' then
         '^.*\>\= *([0-9]*).*$'
       end , '\1');
-
 end;
 
 comment on function get_constraint_parameter (oid , text) is 'Gets the comparison value of a pattern, max, min, maxlength, or minlenght check constraint. ';

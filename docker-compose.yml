@@ -36,9 +36,19 @@ services:
     depends_on:
       - db
 
+#  pgadmin4:
+#    image: dpage/pgadmin4:latest
+#    depends_on:
+#      - db
+#    environment:
+#      - PGADMIN_DEFAULT_PASSWORD=${DB_PASSWORD}
+#      - PGADMIN_DEFAULT_EMAIL=mail@example.com
+#    ports:
+#      - 8060:80
+
   sqlpage:
     # see: https://github.com/lovasoa/SQLpage
-    image: lovasoa/sqlpage
+    image: lovasoa/sqlpage:latest
     restart: always
     depends_on:
       - db

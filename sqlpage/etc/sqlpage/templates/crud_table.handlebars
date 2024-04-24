@@ -11,8 +11,8 @@
                               hover}}table-hover {{~/if}}{{~#if border}}table-bordered {{~/if}}
                               {{~#if small}}table-sm {{~/if}}">
                     {{#if description}}<caption>{{description}}</caption>{{/if}}
+                    {{#each extra_description/columns}}{{#if (not (starts_with name '_'))}}{{name}}{{/if}}{{/each}}
                     {{#each_row}}
-                    {{#each (parse_json ../extra_description)}}{{/each}}
                     {{#if (eq @row_index 0)}}
                         <thead>
                         <tr>
